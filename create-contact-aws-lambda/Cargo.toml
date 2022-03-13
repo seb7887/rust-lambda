@@ -3,18 +3,21 @@ name = "create-contact-aws-lambda"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
-lambda_runtime = "0.5.0"
-lambda_http = "0.5.1"
-serde = "^1"
-serde_json = "^1"
-serde_derive = "^1"
-log = "^0.4"
-tracing = "0.1.31"
-tokio = "1.17.0"
+lambda_runtime = { version = "0.5", optional = true }
+lambda_http = { version = "0.5", optional = true }
+serde = "1"
+serde_json = "1.0"
+tracing = "0.1"
+tokio = { version = "1", features = ["full"] }
+aws-config = "0.8.0"
+aws-sdk-dynamodb = "0.8.0"
+uuid = { version = "0.8.2", features = ["v4"]}
+
+[features]
+default = ["lambda"]
+lambda = ["lambda_runtime", "lambda_http"]
 
 [[bin]]
-name="create-contact"
+name="bootstrap"
 path="src/main.rs"
